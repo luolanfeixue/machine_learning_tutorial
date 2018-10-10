@@ -35,17 +35,17 @@ def initialize_parameters(n_a, n_x, n_y):
     Wax = np.random.randn(n_a, n_x)*0.01 # input to hidden
     Waa = np.random.randn(n_a, n_a)*0.01 # hidden to hidden
     Wya = np.random.randn(n_y, n_a)*0.01 # hidden to output
-    b = np.zeros((n_a, 1)) # hidden bias
+    ba = np.zeros((n_a, 1)) # hidden bias
     by = np.zeros((n_y, 1)) # output bias
     
-    parameters = {"Wax": Wax, "Waa": Waa, "Wya": Wya, "b": b,"by": by}
+    parameters = {"Wax": Wax, "Waa": Waa, "Wya": Wya, "ba": ba,"by": by}
     
     return parameters
 
 def rnn_step_forward(parameters, a_prev, x):
     
-    Waa, Wax, Wya, by, b = parameters['Waa'], parameters['Wax'], parameters['Wya'], parameters['by'], parameters['b']
-    a_next = np.tanh(np.dot(Wax, x) + np.dot(Waa, a_prev) + b) # hidden state
+    Waa, Wax, Wya, by, ba = parameters['Waa'], parameters['Wax'], parameters['Wya'], parameters['by'], parameters['ba']
+    a_next = np.tanh(np.dot(Wax, x) + np.dot(Waa, a_prev) + ba) # hidden state
     p_t = softmax(np.dot(Wya, a_next) + by) # unnormalized log probabilities for next chars # probabilities for next chars 
     
     return a_next, p_t
@@ -67,7 +67,7 @@ def update_parameters(parameters, gradients, lr):
     parameters['Wax'] += -lr * gradients['dWax']
     parameters['Waa'] += -lr * gradients['dWaa']
     parameters['Wya'] += -lr * gradients['dWya']
-    parameters['b']  += -lr * gradients['db']
+    parameters['ba']  += -lr * gradients['db']
     parameters['by']  += -lr * gradients['dby']
     return parameters
 
@@ -105,7 +105,7 @@ def rnn_backward(X, Y, parameters, cache):
     
     # Retrieve from cache and parameters
     (y_hat, a, x) = cache
-    Waa, Wax, Wya, by, b = parameters['Waa'], parameters['Wax'], parameters['Wya'], parameters['by'], parameters['b']
+    Waa, Wax, Wya, by, b = parameters['Waa'], parameters['Wax'], parameters['Wya'], parameters['by'], parameters['ba']
     
     # each one should be initialized to zeros of the same dimension as its corresponding parameter
     gradients['dWax'], gradients['dWaa'], gradients['dWya'] = np.zeros_like(Wax), np.zeros_like(Waa), np.zeros_like(Wya)

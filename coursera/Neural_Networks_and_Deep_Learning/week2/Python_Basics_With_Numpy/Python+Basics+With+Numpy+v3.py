@@ -36,6 +36,8 @@ x = np.array(x).reshape(2,3)
 x = normalize(x)
 print('normalize',x)
 
+
+#矩阵和向量通用softmax
 def softmax(x):
     x_exp = np.exp(x)
     x_sum = np.sum(x_exp,axis=1,keepdims=True)
@@ -48,3 +50,20 @@ x = np.array([
     ])
 x = softmax(x)
 print('softmax',x)
+
+def L1(y_hat,y):
+    loss = np.sum(np.abs(y_hat - y))
+    return loss
+
+yhat = np.array([.9, 0.2, 0.1, .4, .9])
+y = np.array([1, 0, 0, 1, 1])
+print("L1 = " + str(L1(yhat,y)))
+
+
+def L2(y_hat, y):
+    loss = np.sum(np.multiply(y -  y_hat, y - y_hat))
+    return loss
+
+yhat = np.array([.9, 0.2, 0.1, .4, .9])
+y = np.array([1, 0, 0, 1, 1])
+print("L2 = " + str(L2(yhat,y)))

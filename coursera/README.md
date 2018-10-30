@@ -1,0 +1,9 @@
+# machine_learning_tutorial
+大文件数据及位置
+coursera/convolutional_neural_networks/week2/ResNets/ResNet50.h5
+coursera/convolutional_neural_networks/week4/neural_style_transfer/pretrained-model/imagenet-vgg-verydeep-19.mat coursera/sequence_models/week2/Emojify/data/glove.6B.50d.txt coursera/sequence_models/week3/trigger_word_detection/XY_train/X.npy
+coursera/convolutional_neural_networks/week3/Car_detection_for_Autonomous_Driving/model_data/yolo.h5
+coursera/convolutional_neural_networks/week3/Car_detection_for_Autonomous_Driving/nb_images/road_video.mp4
+coursera/convolutional_neural_networks/week3/Car_detection_for_Autonomous_Driving/nb_images/pred_video.mp4
+
+链接:https://pan.baidu.com/s/1SgomvoAZwHoHrzvAgW_11Q  密码:tip1

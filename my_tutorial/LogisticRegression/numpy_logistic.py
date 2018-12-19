@@ -36,7 +36,7 @@ def predict_batch(w, b, X):
     w = w.reshape(X.shape[0], 1)
     A = sigmoid(np.dot(w.T, X) + b)
     for i in range(A.shape[1]):
-        if A[0][i] > 0.5:
+        if A[0][i] >= 0.5:
             Y_prediction[0][i] = 1
         else:
             Y_prediction[0][i] = 0

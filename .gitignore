@@ -7,6 +7,7 @@ coursera/convolutional_neural_networks/week3/Car_detection_for_Autonomous_Drivin
 coursera/sequence_models/week2/Emojify/data/glove.6B.50d.txt
 coursera/sequence_models/week3/trigger_word_detection/XY_train/X.npy
 
+*.idea/
 .DS_Store
 .ipynb_checkpoints
 # Byte-compiled / optimized / DLL files

@@ -28,8 +28,17 @@ train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_datas
 train_set_x, test_set_x = data_transform_for_numpy(train_set_x_orig, test_set_x_orig)
 train_set_x, train_set_y, test_set_x, test_set_y = train_set_x.T, train_set_y.T, test_set_x.T, test_set_y.T
 
+
 m = train_set_x.shape[0]
 nx = train_set_x.shape[1]
+
+# train_set_y = np.reshape(train_set_y,m)
+
+x_train = torch.from_numpy(train_set_x).float()
+
+y_train = torch.from_numpy(train_set_y).long()
+
+print(x_train.shape, y_train.shape)
 
 
 class Logstic_Regression(nn.Module):
@@ -44,17 +53,22 @@ class Logstic_Regression(nn.Module):
 
 learning_rate = 1e-3
 num_epoches = 500
-model = Logstic_Regression(nx, 1)
+
+model = Logstic_Regression(nx, 2) # 2是分为两类，虽然其实一个神经元就可以，但是实现的时候其实是用softmax实现的。
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=learning_rate)
 
 for epoch in range(num_epoches):
-	X = Variable(torch.from_numpy(train_set_x).float())
-	Y = Variable(torch.from_numpy(train_set_y).long())
-	out = model(X)
-	loss = criterion(out, Y)
+	inputs = Variable(x_train)
+	target = Variable(y_train)
+	out = model(inputs) # out.shape=[m,2]
+	target = target.reshape(m)
+	loss = criterion(out, target) # out的shape需要是（batch_size,n_class)。而target.shape 需要是(batch_size)
 	optimizer.zero_grad()
 	loss.backward()
 	optimizer.step()
-	if epoch % 100 == 0:
-		print(loss)
+	if (epoch + 1) % 20 == 0:
+		print('Epoch[{}/{}], loss: {:.6f}'
+		      .format(epoch + 1, num_epoches, loss.data[0]))
+	
+	
